@@ -194,16 +194,9 @@ def play_game(res, req):
 
 
 def get_city(req):
-    # перебираем именованные сущности
     for entity in req['request']['nlu']['entities']:
-        # если тип YANDEX.GEO то пытаемся получить город(city),
-        # если нет, то возвращаем None
         if entity['type'] == 'YANDEX.GEO':
-            if 'city' in entity['value'].keys():
-                return entity['value']['city']
-            else:
-                return None
-    return None
+            return entity['value'].get('city', None)
 
 
 def get_first_name(req):
@@ -215,7 +208,6 @@ def get_first_name(req):
             # то возвращаем ее значение.
             # Во всех остальных случаях возвращаем None.
             return entity['value'].get('first_name', None)
-
 
 
 if __name__ == '__main__':
